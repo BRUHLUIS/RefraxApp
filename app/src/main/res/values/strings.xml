@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Refraxy</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string-array name="unidades_peso">
+        <item>Kilogramos</item>
+        <item>Libras</item>
+        <item>Onzas</item>
+    </string-array>
+    <string name="seleccionar_unidad_final">Seleccionar unidad final</string>
+    <string name="ingrese_valor">Ingrese valor</string>
+    <string name="unidad_volumen_litros">Litros</string>
+    <string name="unidad_volumen_gallones">Gallones</string>
+    <string name="unidad_volumen_pines">Pines</string>
+    <string name="unidad_volumen_mililitros">Mililitros</string>
+    <string-array name="unidades_volumen">
+        <item>@string/unidad_volumen_litros</item>
+        <item>@string/unidad_volumen_gallones</item>
+        <item>@string/unidad_volumen_pines</item>
+        <item>@string/unidad_volumen_mililitros</item>
+    </string-array>
+</resources>

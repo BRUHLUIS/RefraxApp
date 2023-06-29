@@ -1,0 +1,99 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".Fragments.PesoFragment">
+
+    <FrameLayout
+        android:id="@+id/fragment_container_herramientas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/navigation2"
+        app:layout_constraintTop_toTopOf="parent" >
+
+
+        <RelativeLayout
+            android:id="@+id/activity_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            tools:context=".MainActivity4">
+
+            <TextView
+                android:id="@+id/textViewUnidadInicial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unidad inicial:"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:translationY="255dp" />
+
+            <Spinner
+                android:id="@+id/spinnerUnidadInicial"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewUnidadInicial"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="16dp"
+                android:translationX="220dp"
+                android:translationY="200dp" />
+
+            <TextView
+                android:id="@+id/textViewUnidadFinal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spinnerUnidadInicial"
+                android:text="Unidad final:"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:translationY="295dp" />
+
+            <Spinner
+                android:id="@+id/spinnerUnidadFinal"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewUnidadFinal"
+                android:layout_marginTop="-28dp"
+                android:layout_marginBottom="16dp"
+                android:entries="@array/unidades_volumen"
+                android:prompt="@string/seleccionar_unidad_final"
+                android:translationX="225dp"
+                android:translationY="300dp" />
+
+            <EditText
+                android:id="@+id/editTextValor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spinnerUnidadFinal"
+                android:layout_marginTop="-75dp"
+                android:hint="Ingrese el volumen a convertir"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:translationY="55dp" />
+
+            <TextView
+                android:id="@+id/textViewResultado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editTextValor"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="350dp"
+                android:textSize="24sp" />
+        </RelativeLayout>
+    </FrameLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation2"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:itemIconTint="@color/bottons"
+        app:itemTextColor="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/navegation2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

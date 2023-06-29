@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_calculadora"
+        android:icon="@drawable/calculadora"
+        android:title="Calculadora" />
+    <item
+        android:id="@+id/navigation_conversor"
+        android:icon="@drawable/conversor"
+        android:title="Conversor" />
+
+    <item
+        android:id="@+id/navigation_lista"
+        android:icon="@drawable/notas"
+        android:title="Lista" />
+
+
+</menu>

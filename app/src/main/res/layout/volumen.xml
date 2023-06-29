@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".MainActivity4">
+
+    <TextView
+        android:id="@+id/textViewUnidadInicial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unidad inicial:"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/spinnerUnidadInicial"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewUnidadInicial"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/textViewUnidadFinal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerUnidadInicial"
+        android:text="Unidad final:"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/spinnerUnidadFinal"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewUnidadFinal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:entries="@array/unidades_volumen"
+        android:prompt="@string/seleccionar_unidad_final" />
+
+    <EditText
+        android:id="@+id/editTextValor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerUnidadFinal"
+        android:layout_marginTop="16dp"
+        android:inputType="numberDecimal"
+        android:hint="Ingrese el volumen a convertir" />
+
+    <TextView
+        android:id="@+id/textViewResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextValor"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:textSize="24sp" />
+</RelativeLayout>

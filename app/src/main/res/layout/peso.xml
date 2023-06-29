@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/editTextValor"
+            android:layout_width="266dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewPeso"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="Ingrese el peso a convertir"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:id="@+id/textViewUnidadInicial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextValor"
+            android:layout_marginTop="32dp"
+            android:text="Unidad inicial:"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerUnidadInicial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewUnidadInicial"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/textViewUnidadFinal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinnerUnidadInicial"
+            android:layout_marginTop="32dp"
+            android:text="Unidad final:"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerUnidadFinal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewUnidadFinal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/buttonConvertir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinnerUnidadFinal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:text="Convertir" />
+
+        <TextView
+            android:id="@+id/textViewResultado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonConvertir"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

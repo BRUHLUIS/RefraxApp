@@ -1,0 +1,113 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".Fragments.PesoFragment">
+
+    <FrameLayout
+        android:id="@+id/fragment_container_herramientas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/navigation2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/editTextValor"
+                android:layout_width="266dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:hint="Ingrese la longitud a convertir"
+                android:inputType="numberDecimal"
+                android:outlineAmbientShadowColor="@color/black"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:translationX="-35dp"
+                android:translationY="-35dp" />
+
+            <TextView
+                android:id="@+id/textViewUnidadInicial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editTextValor"
+                android:layout_marginTop="32dp"
+                android:text="Unidad inicial:"
+
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinnerUnidadInicial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewUnidadInicial"
+                android:layout_centerHorizontal="true"
+                android:outlineSpotShadowColor="@color/black"
+                android:translationY="-20dp" />
+
+            <TextView
+                android:id="@+id/textViewUnidadFinal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spinnerUnidadInicial"
+                android:layout_marginTop="32dp"
+                android:text="Unidad final:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinnerUnidadFinal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewUnidadFinal"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:translationY="-30dp" />
+
+
+            <Button
+                android:id="@+id/buttonConvertir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spinnerUnidadFinal"
+                android:layout_marginTop="32dp"
+                android:text="Convertir"
+                android:translationX="110dp" />
+
+            <TextView
+                android:id="@+id/textViewResultado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/buttonConvertir"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation2"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:itemIconTint="@color/bottons"
+        app:itemTextColor="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/navegation2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

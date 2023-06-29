@@ -1,0 +1,91 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="¡¡RECUPERA TU CONTRASEÑA!!"
+        android:textColor="@color/blackclaro"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:layout_marginTop="50dp"
+        android:hint="Correo Electrónico"
+        android:textColor="@color/blackclaro"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Contraseña Recuperada:"
+        android:textColor="@color/blackclaro"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/newpassword"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Nueva contraseña"
+            android:textColor="@color/blackclaro"
+            android:textStyle="bold"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/buttonResetPassword"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/botton"
+        android:text="Recuperar Contraseña"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonChangePassword"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="50dp"
+        android:text="Cambiar Contraseña"
+        android:textStyle="bold" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="match_parent"
+        android:layout_height="122dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_progress="0"
+        app:lottie_rawRes="@raw/password" />
+
+</LinearLayout>
