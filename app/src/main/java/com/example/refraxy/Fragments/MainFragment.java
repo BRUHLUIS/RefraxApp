@@ -1,5 +1,4 @@
 package com.example.refraxy.Fragments;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -7,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,10 +25,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.refraxy.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -45,7 +47,7 @@ public class MainFragment extends Fragment {
     private static final int PERMISSION_REQUEST_CODE = 100;
 
     private ImageView profileImageView;
-    private String userId; // User ID variable
+    private Uri selectedImageUri; // Selected image URI
 
     @Nullable
     @Override
@@ -53,10 +55,6 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         profileImageView = view.findViewById(R.id.profileImageView);
-
-        // Retrieve the user ID from SharedPreferences
-        userId = getActivity().getSharedPreferences("loginPrefs", Context.MODE_PRIVATE)
-                .getString("userId", "");
 
         Button selectImageButton = view.findViewById(R.id.selectImageButton);
         selectImageButton.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +86,15 @@ public class MainFragment extends Fragment {
             }
         });
 
+        Button uploadImageButton = view.findViewById(R.id.uploadImageButton);
+        uploadImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Upload the selected image
+                uploadImage();
+            }
+        });
+
         return view;
     }
 
@@ -103,25 +110,62 @@ public class MainFragment extends Fragment {
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
     }
 
+    private void uploadImage() {
+        if (selectedImageUri != null) {
+            // Create an OkHttpClient instance
+            OkHttpClient client = new OkHttpClient();
+
+            // Create a multipart request body with the image file
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("profile_picture", "profile_picture.jpg", RequestBody.create(MediaType.parse("image/*"), new File(selectedImageUri.getPath())))
+                    .build();
+
+            // Create the request
+            Request request = new Request.Builder()
+                    .url("http://192.168.100.90/refaxy/upload-image.php") // Replace with your upload image URL
+                    .post(requestBody)
+                    .build();
+
+            // Make the request asynchronously
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    // Handle request failure
+                    requireActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(requireContext(), "Error uploading image", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    // Handle request success
+                    requireActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(requireContext(), "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
+        } else {
+            Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-            Uri selectedImageUri = data.getData();
+            selectedImageUri = data.getData();
             displaySelectedImage(selectedImageUri);
-
-            // Pass the user ID and image URI to the insertImage() method
-            insertImage(userId, selectedImageUri);
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK && data != null) {
-            Bundle extras = data.getExtras();
-            if (extras != null && extras.containsKey("data")) {
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-                Uri imageUri = getImageUri(requireContext(), imageBitmap);
-                displaySelectedImage(imageUri);
-
-                // Pass the user ID and image URI to the insertImage() method
-                insertImage(userId, imageUri);
-            }
+            Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+            selectedImageUri = getImageUri(requireContext(), imageBitmap);
+            displaySelectedImage(selectedImageUri);
         }
     }
 
@@ -139,66 +183,5 @@ public class MainFragment extends Fragment {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Title", null);
         return Uri.parse(path);
-    }
-
-    private void insertImage(String userId, Uri imageUri) {
-        try {
-            File imageFile = new File(imageUri.getPath());
-
-            RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), imageFile);
-
-            // Create a multipart request body with the user ID and image file
-            RequestBody multipartBody = new MultipartBody.Builder()
-                    .setType(MultipartBody.FORM)
-                    .addFormDataPart("user_id", userId)
-                    .addFormDataPart("profile_picture", imageFile.getName(), requestBody)
-                    .build();
-
-            Request request = new Request.Builder()
-                    .url("http://192.168.100.3/refaxy/upload_image.php") // Replace with your upload URL
-                    .post(multipartBody)
-                    .build();
-
-            OkHttpClient client = new OkHttpClient();
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    if (response.isSuccessful()) {
-                        // Handle successful response
-                        String responseData = response.body().string();
-                        // Process the response data as needed
-                    } else {
-                        // Handle unsuccessful response
-                        String errorMessage = response.message();
-                        // Display or log the error message
-                    }
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_REQUEST_CODE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            // Permission granted, check which button was clicked and proceed accordingly
-            if (Arrays.asList(permissions).contains(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                openImagePicker();
-            } else if (Arrays.asList(permissions).contains(Manifest.permission.CAMERA)) {
-                captureImage();
-            }
-        }
-    }
-
-    private String getLoggedInUserId() {
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("loginPrefs", Context.MODE_PRIVATE);
-        return sharedPreferences.getString("userId", ""); // Retrieve the user ID from shared preferences
     }
 }
